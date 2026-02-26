@@ -6,6 +6,8 @@
   "nav": {
     "converter": "환율 계산",
     "rates": "환율표",
+    "compare": "수수료 비교",
+    "travelBudget": "여행 예산",
     "blog": "블로그"
   },
   "converter": {

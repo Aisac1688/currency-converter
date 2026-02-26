@@ -8,6 +8,7 @@ import { locales } from '@/i18n/config';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import StructuredData, { buildOrganizationSchema, buildWebSiteSchema } from '@/components/seo/StructuredData';
+import AlertChecker from '@/components/alert/AlertChecker';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
@@ -90,6 +91,7 @@ export default async function LocaleLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <AlertChecker />
         </NextIntlClientProvider>
         {GA_ID && (
           <>

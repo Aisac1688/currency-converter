@@ -21,6 +21,12 @@ export default function Header() {
           <Link href="/rates" className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">
             {t('rates')}
           </Link>
+          <Link href="/compare" className="hidden transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 sm:block">
+            {t('compare')}
+          </Link>
+          <Link href="/travel-budget" className="hidden transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 sm:block">
+            {t('travelBudget')}
+          </Link>
           <Link href="/blog" className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">
             {t('blog')}
           </Link>

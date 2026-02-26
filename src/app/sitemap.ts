@@ -31,6 +31,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages: { ko: `${SITE_URL}/ko/rates`, en: `${SITE_URL}/en/rates` } },
     });
 
+    // 수수료 비교
+    entries.push({
+      url: `${SITE_URL}/${locale}/compare`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+      alternates: { languages: { ko: `${SITE_URL}/ko/compare`, en: `${SITE_URL}/en/compare` } },
+    });
+
+    // 여행 예산 계산기
+    entries.push({
+      url: `${SITE_URL}/${locale}/travel-budget`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+      alternates: { languages: { ko: `${SITE_URL}/ko/travel-budget`, en: `${SITE_URL}/en/travel-budget` } },
+    });
+
     // 블로그 목록
     entries.push({
       url: `${SITE_URL}/${locale}/blog`,

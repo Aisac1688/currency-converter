@@ -6,6 +6,8 @@ import { POPULAR_PAIRS, pairToSlug } from '@/lib/pairs';
 import { getAmountsForPair } from '@/lib/amount-pairs';
 import CurrencyConverter from '@/components/converter/CurrencyConverter';
 import RateChart from '@/components/converter/RateChart';
+import RateSignal from '@/components/pair/RateSignal';
+import RateAlertButton from '@/components/alert/RateAlertButton';
 import StructuredData, { buildFaqSchema, buildBreadcrumbSchema, buildWebAppSchema } from '@/components/seo/StructuredData';
 import { Link } from '@/i18n/navigation';
 
@@ -53,6 +55,10 @@ export default async function PairPageContent({ locale, from, to, rates }: Props
         {t('currentRate')}: <span className="font-mono font-semibold text-zinc-900 dark:text-zinc-100">1 {from.toUpperCase()} = {formatCurrency(rate)} {to.toUpperCase()}</span>
         <span className="ml-2 text-sm">({t('updated')}: {formatDate(new Date())})</span>
       </p>
+      <div className="mb-8 flex flex-wrap items-center gap-3">
+        <RateSignal from={from} to={to} />
+        <RateAlertButton from={from} to={to} currentRate={rate} />
+      </div>
 
       <CurrencyConverter rates={rates} defaultFrom={from} defaultTo={to} />
 

@@ -6,6 +6,8 @@
   "nav": {
     "converter": "Converter",
     "rates": "Rates",
+    "compare": "Compare",
+    "travelBudget": "Travel Budget",
     "blog": "Blog"
   },
   "converter": {

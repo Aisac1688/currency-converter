@@ -7,6 +7,7 @@ import { getRelatedAmounts } from './amount-pairs';
 
 export interface AmountPageContent {
   heroAnswer: string;
+  convertedAmount: number;
   contextParagraph: string;
   travelTip: string;
   useCases: string[];
@@ -54,7 +55,7 @@ export function generateAmountContent(
 
   const faqItems = buildFaq(amount, from, to, result, rates, locale, fromC, toC, ctx, counter);
 
-  return { heroAnswer, contextParagraph, travelTip, useCases, quickReference, faqItems };
+  return { heroAnswer, convertedAmount: result, contextParagraph, travelTip, useCases, quickReference, faqItems };
 }
 
 function buildFaq(

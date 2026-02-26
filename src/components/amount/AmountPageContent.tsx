@@ -5,6 +5,7 @@ import { pairToSlug } from '@/lib/pairs';
 import { generateAmountContent } from '@/lib/amount-content';
 import CurrencyConverter from '@/components/converter/CurrencyConverter';
 import QuickReferenceTable from './QuickReferenceTable';
+import BuyingPowerVisual from './BuyingPowerVisual';
 import StructuredData, { buildFaqSchema, buildBreadcrumbSchema } from '@/components/seo/StructuredData';
 import { Link } from '@/i18n/navigation';
 
@@ -86,6 +87,9 @@ export default function AmountPageContent({ locale, amount, from, to, rates }: P
           </div>
         )}
       </section>
+
+      {/* 구매력 시각화 */}
+      <BuyingPowerVisual amount={content.convertedAmount} currency={to} locale={locale} />
 
       {/* 환산표 */}
       {content.quickReference.length > 0 && (
