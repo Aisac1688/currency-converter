@@ -18,6 +18,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <meta name="google-site-verification" content="J8oult15t2PHMt7MutBry2Vy5KdYU7lX3kRgw_aISHo" />
         <meta name="naver-site-verification" content="f4baab8fd479994199f03d3cee80d8a47b7c4afa" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#2563eb" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}>
         {children}

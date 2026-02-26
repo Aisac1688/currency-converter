@@ -1,5 +1,6 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import CurrencyConverter from '@/components/converter/CurrencyConverter';
+import Favorites from '@/components/converter/Favorites';
 import { fetchRates, getRate } from '@/lib/exchange-rates';
 import { getCurrency } from '@/lib/currencies';
 import { formatCurrency } from '@/lib/format';
@@ -28,6 +29,10 @@ export default async function HomePage({
       </div>
 
       <CurrencyConverter rates={rates} />
+
+      <section className="mt-8">
+        <Favorites rates={rates} />
+      </section>
 
       <section className="mt-12">
         <h2 className="mb-4 text-xl font-semibold text-zinc-900 dark:text-zinc-100">

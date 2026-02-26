@@ -14,25 +14,58 @@ export const POPULAR_PAIRS: [string, string][] = [
   ['aud', 'krw'], ['krw', 'aud'],
   ['cad', 'krw'], ['krw', 'cad'],
   ['hkd', 'krw'], ['krw', 'hkd'],
-  ['idr', 'krw'],
-  ['myr', 'krw'],
+  ['idr', 'krw'], ['krw', 'idr'],
+  ['myr', 'krw'], ['krw', 'myr'],
+  ['chf', 'krw'], ['krw', 'chf'],
+  ['nzd', 'krw'], ['krw', 'nzd'],
+  ['inr', 'krw'], ['krw', 'inr'],
+  ['aed', 'krw'], ['krw', 'aed'],
+  ['try', 'krw'], ['krw', 'try'],
 
-  // 글로벌 주요 쌍
+  // USD 글로벌 쌍
   ['eur', 'usd'], ['usd', 'eur'],
   ['gbp', 'usd'], ['usd', 'gbp'],
-  ['usd', 'jpy'], ['usd', 'cny'],
-  ['usd', 'cad'], ['usd', 'aud'],
-  ['usd', 'chf'], ['usd', 'hkd'],
-  ['usd', 'sgd'], ['usd', 'inr'],
-  ['usd', 'thb'], ['usd', 'vnd'],
-  ['usd', 'php'], ['usd', 'idr'],
-  ['usd', 'myr'], ['usd', 'twd'],
-  ['usd', 'mxn'], ['usd', 'brl'],
-  ['eur', 'gbp'], ['eur', 'jpy'],
-  ['eur', 'chf'], ['gbp', 'eur'],
-  ['aud', 'usd'], ['nzd', 'usd'],
-  ['usd', 'try'], ['usd', 'zar'],
-  ['usd', 'rub'], ['usd', 'aed'],
+  ['usd', 'jpy'], ['jpy', 'usd'],
+  ['usd', 'cny'], ['cny', 'usd'],
+  ['usd', 'cad'], ['cad', 'usd'],
+  ['usd', 'aud'], ['aud', 'usd'],
+  ['usd', 'chf'], ['chf', 'usd'],
+  ['usd', 'hkd'], ['usd', 'sgd'],
+  ['usd', 'inr'], ['usd', 'thb'],
+  ['usd', 'vnd'], ['usd', 'php'],
+  ['usd', 'idr'], ['usd', 'myr'],
+  ['usd', 'twd'], ['usd', 'mxn'],
+  ['usd', 'brl'], ['usd', 'try'],
+  ['usd', 'zar'], ['usd', 'rub'],
+  ['usd', 'aed'], ['usd', 'sar'],
+  ['usd', 'nzd'], ['usd', 'sek'],
+  ['usd', 'nok'], ['usd', 'dkk'],
+  ['usd', 'pln'], ['usd', 'czk'],
+  ['usd', 'huf'], ['usd', 'egp'],
+  ['usd', 'ngn'], ['usd', 'pkr'],
+  ['usd', 'bdt'], ['usd', 'lkr'],
+  ['usd', 'kwd'], ['usd', 'qar'],
+
+  // EUR 크로스
+  ['eur', 'gbp'], ['gbp', 'eur'],
+  ['eur', 'jpy'], ['eur', 'chf'],
+  ['eur', 'cny'], ['eur', 'cad'],
+  ['eur', 'aud'], ['eur', 'inr'],
+  ['eur', 'try'], ['eur', 'brl'],
+  ['eur', 'sek'], ['eur', 'nok'],
+  ['eur', 'pln'], ['eur', 'czk'],
+
+  // GBP 크로스
+  ['gbp', 'jpy'], ['gbp', 'chf'],
+  ['gbp', 'aud'], ['gbp', 'cad'],
+
+  // JPY 크로스
+  ['aud', 'jpy'], ['cad', 'jpy'],
+  ['chf', 'jpy'], ['nzd', 'jpy'],
+
+  // 기타 크로스
+  ['aud', 'nzd'], ['nzd', 'usd'],
+  ['sgd', 'myr'], ['thb', 'jpy'],
 ];
 
 /** 통화쌍을 URL 슬러그로 변환. */

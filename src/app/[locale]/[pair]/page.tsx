@@ -6,7 +6,9 @@ import { fetchRates, getRate } from '@/lib/exchange-rates';
 import { getCurrency } from '@/lib/currencies';
 import { formatCurrency, formatDate } from '@/lib/format';
 import CurrencyConverter from '@/components/converter/CurrencyConverter';
+import RateChart from '@/components/converter/RateChart';
 import StructuredData from '@/components/seo/StructuredData';
+import { Link } from '@/i18n/navigation';
 
 export function generateStaticParams() {
   const params: { locale: string; pair: string }[] = [];
@@ -97,6 +99,32 @@ export default async function PairPage({
       </p>
 
       <CurrencyConverter rates={rates} defaultFrom={from} defaultTo={to} />
+
+      {/* Rate Chart */}
+      <section className="mt-8">
+        <RateChart from={from} to={to} />
+      </section>
+
+      {/* Related Pairs */}
+      <section className="mt-8">
+        <h2 className="mb-3 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+          {locale === 'ko' ? '관련 환율' : 'Related Rates'}
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          {POPULAR_PAIRS
+            .filter(([f, t]) => (f === from || t === from || f === to || t === to) && !(f === from && t === to))
+            .slice(0, 8)
+            .map(([f, t]) => (
+              <Link
+                key={`${f}-${t}`}
+                href={`/${f}-to-${t}`}
+                className="rounded-lg border border-zinc-200 px-3 py-1.5 text-sm text-zinc-600 transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800"
+              >
+                {getCurrency(f)?.flag} {f.toUpperCase()} → {getCurrency(t)?.flag} {t.toUpperCase()}
+              </Link>
+            ))}
+        </div>
+      </section>
 
       {/* FAQ Section */}
       <section className="mt-12">
