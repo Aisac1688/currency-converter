@@ -1,0 +1,114 @@
+{
+  "site": {
+    "title": "Currency Converter",
+    "description": "Free currency converter with real-time exchange rates for 150+ currencies. Convert USD, KRW, JPY, EUR and more."
+  },
+  "nav": {
+    "converter": "Converter",
+    "rates": "Rates",
+    "blog": "Blog"
+  },
+  "converter": {
+    "title": "Currency Converter",
+    "subtitle": "Real-time exchange rates for 150+ currencies. Updated daily.",
+    "from": "From",
+    "to": "To",
+    "amount": "Amount",
+    "result": "Result",
+    "search": "Search currency...",
+    "swap": "Swap currencies"
+  },
+  "popular": {
+    "title": "Popular Exchange Rates"
+  },
+  "pair": {
+    "title": "{from} to {to} Exchange Rate Calculator",
+    "description": "Convert {from} to {to}. Latest rate: 1 {fromCode} = {rate} {toCode}.",
+    "currentRate": "Current Rate",
+    "updated": "Last Updated",
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "How much is 1 {fromCode} in {toCode}?",
+      "a1": "At the current exchange rate, 1 {fromCode} equals approximately {rate} {toCode}. Exchange rates fluctuate daily.",
+      "q2": "How to convert {fromName} to {toName}?",
+      "a2": "You can convert through banks, currency exchange offices, or online remittance services. Compare exchange fees to find the best rate.",
+      "q3": "How often does the {fromCode}/{toCode} rate change?",
+      "a3": "The forex market operates 24 hours on weekdays and rates change in real-time. Rates on this site are updated daily."
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Useful information and guides about exchange rates, currency conversion, and international transfers",
+    "empty": "No posts yet.",
+    "backToList": "Back to blog",
+    "notFound": "Post not found."
+  },
+  "rates": {
+    "title": "Exchange Rates",
+    "subtitle": "Latest exchange rates for 150+ world currencies",
+    "search": "Search currency (name or code)...",
+    "code": "Code",
+    "currency": "Currency",
+    "updated": "Last Updated",
+    "showing": "Showing {count} currencies"
+  },
+  "footer": {
+    "source": "Exchange rates provided by open source API. Updated daily.",
+    "rights": "All rights reserved.",
+    "about": "About",
+    "privacy": "Privacy Policy",
+    "contact": "Contact"
+  },
+  "about": {
+    "title": "About",
+    "p1": "CurrencyCalc provides real-time exchange rate information and a convenient currency calculator for over 150 currencies worldwide.",
+    "p2": "Based on daily updated exchange rate data, anyone can quickly and easily check and calculate exchange rates.",
+    "p3": "We provide accurate exchange rate information for free, whether you need it for travel, studying abroad, business, or international transfers.",
+    "featuresTitle": "Key Features",
+    "f1": "Real-time exchange rate calculator for 150+ currencies",
+    "f2": "Dedicated pages for 50+ popular currency pairs",
+    "f3": "Bilingual support (Korean/English)",
+    "f4": "Mobile-optimized responsive design",
+    "dataTitle": "Data Source",
+    "dataDesc": "Exchange rate data is sourced from a reliable open-source API and automatically updated daily. The rates provided are for reference purposes only. Please check with your financial institution for actual transaction rates.",
+    "contactTitle": "Contact",
+    "contactDesc": "If you have any questions or suggestions about our service, please reach out through our contact page."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated",
+    "intro": "CurrencyCalc ('the Service') values your privacy and processes personal information as follows.",
+    "collect": {
+      "title": "Information We Collect",
+      "desc": "The Service does not require registration and does not directly collect personal information. However, information such as IP address, browser type, and pages visited may be automatically collected during your use of the Service."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "desc": "The Service may use cookies to improve user experience and analyze service usage. You can refuse cookies through your browser settings, but some features may be limited."
+    },
+    "ads": {
+      "title": "Advertising",
+      "desc": "The Service may display advertisements through Google AdSense. Google may use cookies to serve ads based on your interests."
+    },
+    "thirdParty": {
+      "title": "Third-Party Services",
+      "desc": "The Service uses third-party services for exchange rate data, web analytics, and advertising. Please refer to each service's privacy policy for their data handling practices."
+    },
+    "security": {
+      "title": "Security",
+      "desc": "The Service transmits data securely through HTTPS encryption and takes reasonable security measures to protect user information."
+    },
+    "changes": {
+      "title": "Policy Changes",
+      "desc": "This privacy policy may be updated from time to time. Any changes will be posted on this page."
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "desc": "If you have questions, suggestions, or want to report an error, please reach out through the methods below.",
+    "emailTitle": "Email",
+    "emailDesc": "For general inquiries, advertising inquiries, and technical support, please send us an email.",
+    "feedbackTitle": "Feedback",
+    "feedbackDesc": "If you have ideas or suggestions for improving the service, please don't hesitate to reach out. Your feedback helps us make CurrencyCalc better."
+  }
+}

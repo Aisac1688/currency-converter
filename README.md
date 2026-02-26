@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CurrencyCalc — 환율 계산기
 
-## Getting Started
+150개 이상 통화의 환율 계산기 + 블로그 콘텐츠 사이트. Next.js SSG + Vercel 무료 호스팅.
 
-First, run the development server:
+## 기술 스택
+
+- **Next.js 16** (App Router, SSG)
+- **Tailwind CSS v4** + @tailwindcss/typography
+- **next-intl** (한국어/영어 다국어)
+- **fawazahmed0/exchange-api** (무료 환율 API, 빌드 타임 fetch)
+- **gray-matter + marked** (블로그 마크다운 파싱)
+
+## 로컬 실행
 
 ```bash
+# Node.js 20+ 필요
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 에서 확인.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 빌드
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+154페이지 정적 생성 (계산기 홈, 환율표, 통화쌍 50+, 블로그 20개, 법적 페이지 등).
 
-To learn more about Next.js, take a look at the following resources:
+## 환경변수
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+cp .env.example .env.local
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| 변수 | 설명 | 필수 |
+|------|------|------|
+| `NEXT_PUBLIC_SITE_URL` | 사이트 URL (사이트맵, OG 태그) | O |
+| `NEXT_PUBLIC_ADSENSE_ID` | Google AdSense 퍼블리셔 ID | X |
 
-## Deploy on Vercel
+## 배포 (Vercel)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1. Vercel 프로젝트 연결
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm i -g vercel
+vercel login
+vercel link
+```
+
+Environment Variables에 `NEXT_PUBLIC_SITE_URL`을 실제 도메인으로 설정.
+
+### 2. GitHub Actions 자동 재빌드
+
+매일 UTC 00:00 (KST 09:00)에 환율 데이터를 갱신하며 재빌드.
+
+GitHub Repository > Settings > Secrets에 추가:
+
+| Secret | 값 |
+|--------|-----|
+| `VERCEL_TOKEN` | Vercel > Settings > Tokens에서 생성 |
+| `VERCEL_ORG_ID` | `.vercel/project.json`의 orgId |
+| `VERCEL_PROJECT_ID` | `.vercel/project.json`의 projectId |
+
+### 3. SEO 설정
+
+1. **Google Search Console**: 사이트 소유권 인증 → `sitemap.xml` 제출
+2. **Naver 웹마스터도구**: 사이트 등록 → 사이트맵 제출
+3. **AdSense**: 콘텐츠 충분히 축적 후 (2~4주) 신청
+
+## 프로젝트 구조
+
+```
+src/
+├── app/
+│   ├── [locale]/
+│   │   ├── page.tsx            # 홈: 계산기 + 인기 환율
+│   │   ├── [pair]/page.tsx     # 통화쌍 페이지
+│   │   ├── rates/page.tsx      # 환율표
+│   │   ├── blog/               # 블로그 목록 + 글
+│   │   ├── about/page.tsx      # 소개
+│   │   ├── privacy/page.tsx    # 개인정보처리방침
+│   │   └── contact/page.tsx    # 연락처
+│   ├── sitemap.ts
+│   └── robots.ts
+├── components/
+│   ├── converter/              # 환율 계산기 UI
+│   ├── rates/                  # 환율 테이블
+│   ├── ads/AdBanner.tsx        # AdSense 래퍼
+│   ├── layout/                 # Header, Footer, ThemeToggle
+│   └── seo/                    # 구조화 데이터
+├── lib/                        # 유틸리티 (환율, 통화, 블로그, 포맷)
+└── i18n/                       # 다국어 설정
+content/blog/                   # 블로그 마크다운 (ko/, en/)
+messages/                       # UI 번역 JSON (ko.json, en.json)
+```
