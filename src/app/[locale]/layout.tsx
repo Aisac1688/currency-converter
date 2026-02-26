@@ -5,6 +5,7 @@ import { setRequestLocale, getMessages, getTranslations } from 'next-intl/server
 import { locales } from '@/i18n/config';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import StructuredData, { buildOrganizationSchema, buildWebSiteSchema } from '@/components/seo/StructuredData';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://hwanyul.com';
 
@@ -32,7 +33,7 @@ export async function generateMetadata({
       title: t('title'),
       description: t('description'),
       url: `${SITE_URL}/${locale}`,
-      siteName: '환율',
+      siteName: 'hwanyul.com',
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',
       type: 'website',
     },
@@ -56,8 +57,13 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
 
+  const orgSchema = buildOrganizationSchema();
+  const siteSchema = buildWebSiteSchema(locale);
+
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
+      <StructuredData data={orgSchema} />
+      <StructuredData data={siteSchema} />
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />

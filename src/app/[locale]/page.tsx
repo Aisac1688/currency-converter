@@ -6,6 +6,7 @@ import { getCurrency } from '@/lib/currencies';
 import { formatCurrency } from '@/lib/format';
 import { HOME_PAIRS, pairToSlug } from '@/lib/pairs';
 import { Link } from '@/i18n/navigation';
+import StructuredData, { buildWebAppSchema } from '@/components/seo/StructuredData';
 
 export default async function HomePage({
   params,
@@ -19,6 +20,7 @@ export default async function HomePage({
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
+      <StructuredData data={buildWebAppSchema(locale)} />
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
           {t('converter.title')}

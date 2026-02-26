@@ -4,6 +4,9 @@ import { marked } from 'marked';
 import { locales } from '@/i18n/config';
 import { getPost, getAllSlugs } from '@/lib/blog';
 import { Link } from '@/i18n/navigation';
+import StructuredData, { buildBlogPostingSchema, buildBreadcrumbSchema } from '@/components/seo/StructuredData';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://hwanyul.com';
 
 export function generateStaticParams() {
   const params: { locale: string; slug: string }[] = [];
@@ -31,6 +34,20 @@ export async function generateMetadata({
       canonical: `/${locale}/blog/${slug}`,
       languages: { ko: `/ko/blog/${slug}`, en: `/en/blog/${slug}` },
     },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: 'article',
+      publishedTime: post.date,
+      modifiedTime: post.date,
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
+      siteName: 'hwanyul.com',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+    },
   };
 }
 
@@ -56,9 +73,27 @@ export default async function BlogPostPage({
   }
 
   const html = await marked(post.content);
+  const postUrl = `${SITE_URL}/${locale}/blog/${slug}`;
+
+  const blogSchema = buildBlogPostingSchema({
+    title: post.title,
+    description: post.description,
+    date: post.date,
+    url: postUrl,
+    locale,
+  });
+
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: locale === 'ko' ? '홈' : 'Home', url: `${SITE_URL}/${locale}` },
+    { name: locale === 'ko' ? '블로그' : 'Blog', url: `${SITE_URL}/${locale}/blog` },
+    { name: post.title, url: postUrl },
+  ]);
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12">
+      <StructuredData data={blogSchema} />
+      <StructuredData data={breadcrumbSchema} />
+
       <div className="mb-8">
         <Link href="/blog" className="text-sm text-blue-600 hover:underline dark:text-blue-400">
           &larr; {t('backToList')}

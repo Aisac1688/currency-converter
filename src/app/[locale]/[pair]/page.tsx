@@ -7,8 +7,10 @@ import { getCurrency } from '@/lib/currencies';
 import { formatCurrency, formatDate } from '@/lib/format';
 import CurrencyConverter from '@/components/converter/CurrencyConverter';
 import RateChart from '@/components/converter/RateChart';
-import StructuredData from '@/components/seo/StructuredData';
+import StructuredData, { buildFaqSchema, buildBreadcrumbSchema, buildWebAppSchema } from '@/components/seo/StructuredData';
 import { Link } from '@/i18n/navigation';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://hwanyul.com';
 
 export function generateStaticParams() {
   const params: { locale: string; pair: string }[] = [];
@@ -84,9 +86,18 @@ export default async function PairPage({
     },
   ];
 
+  const faqSchema = buildFaqSchema(faqItems);
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: locale === 'ko' ? '홈' : 'Home', url: `${SITE_URL}/${locale}` },
+    { name: `${from.toUpperCase()} → ${to.toUpperCase()}`, url: `${SITE_URL}/${locale}/${pair}` },
+  ]);
+  const webAppSchema = buildWebAppSchema(locale);
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <StructuredData type="faq" faqItems={faqItems} />
+      <StructuredData data={faqSchema} />
+      <StructuredData data={breadcrumbSchema} />
+      <StructuredData data={webAppSchema} />
 
       <h1 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-3xl">
         {fromC?.flag} {from.toUpperCase()} → {toC?.flag} {to.toUpperCase()}
