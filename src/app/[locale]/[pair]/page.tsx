@@ -49,7 +49,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `/${locale}/${pair}`,
-      languages: { ko: `/ko/${pair}`, en: `/en/${pair}` },
+      languages: { ko: `/ko/${pair}`, en: `/en/${pair}`, 'x-default': `/ko/${pair}` },
     },
   };
 }

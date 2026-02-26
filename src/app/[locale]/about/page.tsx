@@ -12,9 +12,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const description = locale === 'ko'
+    ? 'hwanyul.com은 150개 이상 통화의 실시간 환율 정보를 무료로 제공하는 서비스입니다.'
+    : 'hwanyul.com provides free real-time exchange rate information for over 150 currencies.';
+
   return {
     title: locale === 'ko' ? '소개' : 'About',
-    alternates: { canonical: `/${locale}/about`, languages: { ko: '/ko/about', en: '/en/about' } },
+    description,
+    alternates: { canonical: `/${locale}/about`, languages: { ko: '/ko/about', en: '/en/about', 'x-default': '/ko/about' } },
   };
 }
 

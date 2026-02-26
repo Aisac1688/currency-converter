@@ -12,9 +12,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const description = locale === 'ko'
+    ? 'hwanyul.com에 문의사항이 있으시면 연락해주세요.'
+    : 'Get in touch with hwanyul.com for questions or feedback.';
+
   return {
     title: locale === 'ko' ? '연락처' : 'Contact',
-    alternates: { canonical: `/${locale}/contact`, languages: { ko: '/ko/contact', en: '/en/contact' } },
+    description,
+    alternates: { canonical: `/${locale}/contact`, languages: { ko: '/ko/contact', en: '/en/contact', 'x-default': '/ko/contact' } },
   };
 }
 

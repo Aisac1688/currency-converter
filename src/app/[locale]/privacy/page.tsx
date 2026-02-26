@@ -12,9 +12,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const description = locale === 'ko'
+    ? 'hwanyul.com의 개인정보 수집 및 이용에 관한 안내입니다.'
+    : 'Privacy policy for hwanyul.com regarding data collection and usage.';
+
   return {
     title: locale === 'ko' ? '개인정보처리방침' : 'Privacy Policy',
-    alternates: { canonical: `/${locale}/privacy`, languages: { ko: '/ko/privacy', en: '/en/privacy' } },
+    description,
+    alternates: { canonical: `/${locale}/privacy`, languages: { ko: '/ko/privacy', en: '/en/privacy', 'x-default': '/ko/privacy' } },
   };
 }
 

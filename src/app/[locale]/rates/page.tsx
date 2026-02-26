@@ -16,8 +16,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const title = locale === 'ko'
-    ? '환율표 — 150개 이상 통화 실시간 환율 | CurrencyCalc'
-    : 'Exchange Rates — 150+ Currencies Live Rates | CurrencyCalc';
+    ? '환율표 — 150개 이상 통화 실시간 환율 | hwanyul.com'
+    : 'Exchange Rates — 150+ Currencies Live Rates | hwanyul.com';
   const description = locale === 'ko'
     ? '150개 이상 세계 통화의 최신 환율을 한눈에 확인하세요. 검색 및 정렬 지원.'
     : 'View the latest exchange rates for 150+ world currencies. Search and sort supported.';
@@ -27,7 +27,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `/${locale}/rates`,
-      languages: { ko: '/ko/rates', en: '/en/rates' },
+      languages: { ko: '/ko/rates', en: '/en/rates', 'x-default': '/ko/rates' },
     },
   };
 }

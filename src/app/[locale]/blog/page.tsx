@@ -26,7 +26,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `/${locale}/blog`,
-      languages: { ko: '/ko/blog', en: '/en/blog' },
+      languages: { ko: '/ko/blog', en: '/en/blog', 'x-default': '/ko/blog' },
     },
   };
 }

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { marked } from 'marked';
 import { locales } from '@/i18n/config';
-import { getPost, getAllSlugs } from '@/lib/blog';
+import { getPost, getAllSlugs, getAllPosts } from '@/lib/blog';
 import { Link } from '@/i18n/navigation';
 import StructuredData, { buildBlogPostingSchema, buildBreadcrumbSchema } from '@/components/seo/StructuredData';
 
@@ -32,7 +32,7 @@ export async function generateMetadata({
     description: post.description,
     alternates: {
       canonical: `/${locale}/blog/${slug}`,
-      languages: { ko: `/ko/blog/${slug}`, en: `/en/blog/${slug}` },
+      languages: { ko: `/ko/blog/${slug}`, en: `/en/blog/${slug}`, 'x-default': `/ko/blog/${slug}` },
     },
     openGraph: {
       title: post.title,
@@ -89,6 +89,11 @@ export default async function BlogPostPage({
     { name: post.title, url: postUrl },
   ]);
 
+  const allPosts = getAllPosts(locale);
+  const relatedPosts = allPosts
+    .filter(p => p.slug !== slug && p.category === post.category)
+    .slice(0, 3);
+
   return (
     <article className="mx-auto max-w-3xl px-4 py-12">
       <StructuredData data={blogSchema} />
@@ -121,6 +126,41 @@ export default async function BlogPostPage({
           prose-headings:font-semibold prose-a:text-blue-600 dark:prose-a:text-blue-400"
         dangerouslySetInnerHTML={{ __html: html }}
       />
+
+      {/* 환율 계산기 CTA */}
+      <div className="mt-10 rounded-xl border border-blue-200 bg-blue-50 p-6 text-center dark:border-blue-900 dark:bg-blue-950/50">
+        <p className="mb-3 text-sm font-medium text-blue-800 dark:text-blue-300">
+          {locale === 'ko' ? '지금 바로 환율을 확인해보세요' : 'Check exchange rates now'}
+        </p>
+        <Link
+          href="/"
+          className="inline-block rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+        >
+          {locale === 'ko' ? '환율 계산기 바로가기' : 'Go to Currency Converter'}
+        </Link>
+      </div>
+
+      {/* 관련 글 */}
+      {relatedPosts.length > 0 && (
+        <section className="mt-10">
+          <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+            {locale === 'ko' ? '관련 글' : 'Related Articles'}
+          </h2>
+          <div className="space-y-3">
+            {relatedPosts.map(rp => (
+              <Link
+                key={rp.slug}
+                href={`/blog/${rp.slug}`}
+                className="block rounded-lg border border-zinc-200 p-4 transition-colors hover:bg-zinc-50
+                  dark:border-zinc-800 dark:hover:bg-zinc-900/50"
+              >
+                <h3 className="font-medium text-zinc-900 dark:text-zinc-100">{rp.title}</h3>
+                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400 line-clamp-1">{rp.description}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </article>
   );
 }

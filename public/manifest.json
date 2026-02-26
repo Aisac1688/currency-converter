@@ -1,14 +1,28 @@
 {
-  "name": "환율 - 환율 계산기",
-  "short_name": "환율",
-  "description": "150개 이상 통화의 실시간 환율 계산기",
-  "start_url": "/ko",
+  "name": "hwanyul.com - 환율 계산기 | Currency Converter",
+  "short_name": "hwanyul",
+  "description": "150개 이상 통화의 실시간 환율 계산기. Real-time currency converter for 150+ currencies.",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2563eb",
+  "categories": ["finance", "utilities"],
   "icons": [
     { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" },
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "shortcuts": [
+    {
+      "name": "환율표 / Rates",
+      "url": "/ko/rates",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "블로그 / Blog",
+      "url": "/ko/blog",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
   ]
 }
