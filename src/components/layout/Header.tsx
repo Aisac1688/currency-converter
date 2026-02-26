@@ -12,7 +12,7 @@ export default function Header() {
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 font-semibold text-zinc-900 dark:text-zinc-100">
           <span className="text-xl">💱</span>
-          <span>CurrencyCalc</span>
+          <span>환율</span>
         </Link>
         <nav className="flex items-center gap-4 text-sm font-medium text-zinc-600 dark:text-zinc-400">
           <Link href="/" className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">

@@ -6,7 +6,7 @@ import { locales } from '@/i18n/config';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://currencycalc.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://hwanyul.com';
 
 export function generateStaticParams() {
   return locales.map(locale => ({ locale }));
@@ -32,7 +32,7 @@ export async function generateMetadata({
       title: t('title'),
       description: t('description'),
       url: `${SITE_URL}/${locale}`,
-      siteName: 'CurrencyCalc',
+      siteName: '환율',
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',
       type: 'website',
     },

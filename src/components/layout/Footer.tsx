@@ -21,7 +21,7 @@ export default function Footer() {
               {t('contact')}
             </Link>
           </nav>
-          <p>&copy; {new Date().getFullYear()} CurrencyCalc. {t('rights')}</p>
+          <p>&copy; {new Date().getFullYear()} 환율. {t('rights')}</p>
         </div>
       </div>
     </footer>
