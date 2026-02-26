@@ -11,6 +11,7 @@ interface CurrencyConverterProps {
   rates: Rates;
   defaultFrom?: string;
   defaultTo?: string;
+  defaultAmount?: string;
 }
 
 /** 메인 환율 계산기 위젯. */
@@ -18,8 +19,9 @@ export default function CurrencyConverter({
   rates,
   defaultFrom = 'usd',
   defaultTo = 'krw',
+  defaultAmount = '1',
 }: CurrencyConverterProps) {
-  const [amount, setAmount] = useState('1');
+  const [amount, setAmount] = useState(defaultAmount);
   const [from, setFrom] = useState(defaultFrom);
   const [to, setTo] = useState(defaultTo);
 

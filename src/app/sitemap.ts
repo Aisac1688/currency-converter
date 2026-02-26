@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { locales } from '@/i18n/config';
-import { POPULAR_PAIRS, pairToSlug } from '@/lib/pairs';
+import { POPULAR_PAIRS, pairToSlug, amountPairToSlug } from '@/lib/pairs';
+import { getAllAmountSlugs } from '@/lib/amount-pairs';
 import { getAllSlugs } from '@/lib/blog';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://hwanyul.com';
@@ -57,6 +58,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: now,
         changeFrequency: 'daily',
         priority: 0.7,
+        alternates: { languages: { ko: `${SITE_URL}/ko/${slug}`, en: `${SITE_URL}/en/${slug}` } },
+      });
+    }
+
+    // 금액별 페이지
+    for (const { from, to, amount } of getAllAmountSlugs()) {
+      const slug = amountPairToSlug(amount, from, to);
+      entries.push({
+        url: `${SITE_URL}/${locale}/${slug}`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.6,
         alternates: { languages: { ko: `${SITE_URL}/ko/${slug}`, en: `${SITE_URL}/en/${slug}` } },
       });
     }

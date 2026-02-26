@@ -73,11 +73,34 @@ export function pairToSlug(from: string, to: string): string {
   return `${from.toLowerCase()}-to-${to.toLowerCase()}`;
 }
 
-/** URL 슬러그에서 통화쌍 추출. */
+/** 금액+통화쌍을 URL 슬러그로 변환. */
+export function amountPairToSlug(amount: number, from: string, to: string): string {
+  return `${amount}-${from.toLowerCase()}-to-${to.toLowerCase()}`;
+}
+
+export interface PairSlug { type: 'pair'; from: string; to: string }
+export interface AmountPairSlug { type: 'amount'; amount: number; from: string; to: string }
+export type ParsedSlug = PairSlug | AmountPairSlug;
+
+/** URL 슬러그를 파싱하여 통화쌍 또는 금액+통화쌍 반환. */
+export function parseSlug(slug: string): ParsedSlug | null {
+  const amountMatch = slug.match(/^(\d+)-([a-z]{3})-to-([a-z]{3})$/);
+  if (amountMatch) {
+    return { type: 'amount', amount: parseInt(amountMatch[1], 10), from: amountMatch[2], to: amountMatch[3] };
+  }
+  const pairMatch = slug.match(/^([a-z]{3})-to-([a-z]{3})$/);
+  if (pairMatch) {
+    return { type: 'pair', from: pairMatch[1], to: pairMatch[2] };
+  }
+  return null;
+}
+
+/** URL 슬러그에서 통화쌍 추출 (하위 호환). */
 export function slugToPair(slug: string): [string, string] | null {
-  const match = slug.match(/^([a-z]{3})-to-([a-z]{3})$/);
-  if (!match) return null;
-  return [match[1], match[2]];
+  const parsed = parseSlug(slug);
+  if (!parsed) return null;
+  if (parsed.type === 'amount') return [parsed.from, parsed.to];
+  return [parsed.from, parsed.to];
 }
 
 /** 홈페이지 인기 환율 표시용. */
