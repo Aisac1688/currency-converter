@@ -84,9 +84,11 @@ export default async function BlogPostPage({
     locale,
   });
 
+  const categoryName = getCategoryDisplay(post.categorySlug, locale);
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: locale === 'ko' ? '홈' : 'Home', url: `${SITE_URL}/${locale}` },
     { name: locale === 'ko' ? '블로그' : 'Blog', url: `${SITE_URL}/${locale}/blog` },
+    { name: categoryName, url: `${SITE_URL}/${locale}/blog/category/${post.categorySlug}` },
     { name: post.title, url: postUrl },
   ]);
 

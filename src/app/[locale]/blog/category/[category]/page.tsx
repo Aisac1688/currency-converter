@@ -4,6 +4,9 @@ import { locales } from '@/i18n/config';
 import { getPostsByCategory, getAllCategoriesWithCount } from '@/lib/blog';
 import { getAllCategorySlugs, getCategoryDisplay } from '@/lib/blog-categories';
 import { Link } from '@/i18n/navigation';
+import StructuredData, { buildBreadcrumbSchema } from '@/components/seo/StructuredData';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://hwanyul.com';
 
 export const dynamicParams = false;
 
@@ -42,6 +45,13 @@ export async function generateMetadata({
         'x-default': `/ko/blog/category/${category}`,
       },
     },
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
+      siteName: 'hwanyul.com',
+    },
   };
 }
 
@@ -57,8 +67,15 @@ export default async function CategoryPage({
   const displayName = getCategoryDisplay(category, locale);
   const categories = getAllCategoriesWithCount(locale);
 
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: locale === 'ko' ? '홈' : 'Home', url: `${SITE_URL}/${locale}` },
+    { name: locale === 'ko' ? '블로그' : 'Blog', url: `${SITE_URL}/${locale}/blog` },
+    { name: displayName, url: `${SITE_URL}/${locale}/blog/category/${category}` },
+  ]);
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
+      <StructuredData data={breadcrumbSchema} />
       <Link href="/blog" className="mb-6 inline-block text-sm text-blue-600 hover:underline dark:text-blue-400">
         &larr; {t('backToList')}
       </Link>
