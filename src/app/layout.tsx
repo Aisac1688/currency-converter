@@ -13,6 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <meta name="google-site-verification" content="J8oult15t2PHMt7MutBry2Vy5KdYU7lX3kRgw_aISHo" />
+        <meta name="naver-site-verification" content="f4baab8fd479994199f03d3cee80d8a47b7c4afa" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}>
         {children}
