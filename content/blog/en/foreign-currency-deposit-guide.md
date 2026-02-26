@@ -2,7 +2,7 @@
 title: "Complete Guide to Foreign Currency Deposits: Grow Your Savings in Multiple Currencies"
 description: "Learn how foreign currency deposit accounts work, their benefits and risks, and how to use them as a tool for diversification and potential profit."
 date: "2025-02-26"
-category: "Guide"
+category: "Guides"
 ---
 
 # Complete Guide to Foreign Currency Deposits: Grow Your Savings in Multiple Currencies

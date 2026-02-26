@@ -3,6 +3,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { marked } from 'marked';
 import { locales } from '@/i18n/config';
 import { getPost, getAllSlugs, getAllPosts } from '@/lib/blog';
+import { getCategoryDisplay } from '@/lib/blog-categories';
 import { Link } from '@/i18n/navigation';
 import StructuredData, { buildBlogPostingSchema, buildBreadcrumbSchema } from '@/components/seo/StructuredData';
 
@@ -91,7 +92,7 @@ export default async function BlogPostPage({
 
   const allPosts = getAllPosts(locale);
   const relatedPosts = allPosts
-    .filter(p => p.slug !== slug && p.category === post.category)
+    .filter(p => p.slug !== slug && p.categorySlug === post.categorySlug)
     .slice(0, 3);
 
   return (
@@ -108,11 +109,14 @@ export default async function BlogPostPage({
       <header className="mb-8">
         <div className="mb-3 flex items-center gap-3 text-sm text-zinc-400 dark:text-zinc-500">
           <time dateTime={post.date}>{post.date}</time>
-          {post.category && (
-            <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-600
-              dark:bg-blue-950 dark:text-blue-400">
-              {post.category}
-            </span>
+          {post.categorySlug && (
+            <Link
+              href={`/blog/category/${post.categorySlug}`}
+              className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-600 hover:bg-blue-100
+                dark:bg-blue-950 dark:text-blue-400 dark:hover:bg-blue-900"
+            >
+              {getCategoryDisplay(post.categorySlug, locale)}
+            </Link>
           )}
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">

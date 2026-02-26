@@ -3,6 +3,7 @@ import { locales } from '@/i18n/config';
 import { POPULAR_PAIRS, pairToSlug, amountPairToSlug } from '@/lib/pairs';
 import { getAllAmountSlugs } from '@/lib/amount-pairs';
 import { getAllSlugs } from '@/lib/blog';
+import { getAllCategorySlugs } from '@/lib/blog-categories';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://hwanyul.com';
 
@@ -71,6 +72,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'daily',
         priority: 0.6,
         alternates: { languages: { ko: `${SITE_URL}/ko/${slug}`, en: `${SITE_URL}/en/${slug}` } },
+      });
+    }
+
+    // 블로그 카테고리
+    for (const cat of getAllCategorySlugs()) {
+      entries.push({
+        url: `${SITE_URL}/${locale}/blog/category/${cat}`,
+        lastModified: now,
+        changeFrequency: 'weekly',
+        priority: 0.7,
+        alternates: { languages: { ko: `${SITE_URL}/ko/blog/category/${cat}`, en: `${SITE_URL}/en/blog/category/${cat}` } },
       });
     }
 

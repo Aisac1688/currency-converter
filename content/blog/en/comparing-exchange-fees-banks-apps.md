@@ -2,7 +2,7 @@
 title: "Comparing Exchange Fees: Banks vs Currency Exchanges vs Apps"
 description: "A detailed breakdown of what banks, airport exchanges, online platforms, and fintech apps actually charge for currency conversion, and how to find the cheapest option."
 date: "2025-02-26"
-category: "Guide"
+category: "Guides"
 ---
 
 # Comparing Exchange Fees: Banks vs Currency Exchanges vs Apps

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { locales } from '@/i18n/config';
-import { getAllPosts } from '@/lib/blog';
+import { getAllPosts, getAllCategoriesWithCount } from '@/lib/blog';
+import { getCategoryDisplay } from '@/lib/blog-categories';
 import { Link } from '@/i18n/navigation';
 
 export function generateStaticParams() {
@@ -40,13 +41,31 @@ export default async function BlogListPage({
   setRequestLocale(locale);
   const t = await getTranslations('blog');
   const posts = getAllPosts(locale);
+  const categories = getAllCategoriesWithCount(locale);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="mb-2 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
         {t('title')}
       </h1>
-      <p className="mb-10 text-zinc-500 dark:text-zinc-400">{t('subtitle')}</p>
+      <p className="mb-6 text-zinc-500 dark:text-zinc-400">{t('subtitle')}</p>
+
+      {/* 카테고리 필터 */}
+      <div className="mb-8 flex flex-wrap gap-2">
+        <span className="rounded-full bg-blue-600 px-3 py-1 text-sm text-white">
+          {locale === 'ko' ? '전체' : 'All'} ({posts.length})
+        </span>
+        {categories.map(c => (
+          <Link
+            key={c.slug}
+            href={`/blog/category/${c.slug}`}
+            className="rounded-full border border-zinc-200 px-3 py-1 text-sm text-zinc-600 transition-colors hover:bg-zinc-100
+              dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800"
+          >
+            {getCategoryDisplay(c.slug, locale)} ({c.count})
+          </Link>
+        ))}
+      </div>
 
       {posts.length === 0 ? (
         <p className="text-zinc-400">{t('empty')}</p>
@@ -61,10 +80,10 @@ export default async function BlogListPage({
             >
               <div className="mb-2 flex items-center gap-3 text-xs text-zinc-400 dark:text-zinc-500">
                 <time dateTime={post.date}>{post.date}</time>
-                {post.category && (
+                {post.categorySlug && (
                   <span className="rounded-full bg-blue-50 px-2.5 py-0.5 font-medium text-blue-600
                     dark:bg-blue-950 dark:text-blue-400">
-                    {post.category}
+                    {getCategoryDisplay(post.categorySlug, locale)}
                   </span>
                 )}
               </div>
