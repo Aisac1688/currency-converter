@@ -3,7 +3,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { fetchRates } from '@/lib/exchange-rates';
 import { STOCK_TICKERS } from '@/lib/stock-tickers';
 import { fetchStockQuote } from '@/lib/stock-api';
-import OmniCalculator from '@/components/calculator/OmniCalculator';
+import SearchHero from '@/components/search/SearchHero';
 import StructuredData, { buildBreadcrumbSchema, buildFaqSchema } from '@/components/seo/StructuredData';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://hwanyul.com';
@@ -56,7 +56,6 @@ export default async function CalculatorPage({
 
   const rates = await fetchRates();
 
-  // 주식 가격을 병렬로 fetch
   const stockQuotes = await Promise.all(
     STOCK_TICKERS.map(async s => {
       const q = await fetchStockQuote(s.symbol);
@@ -73,24 +72,15 @@ export default async function CalculatorPage({
   const faqSchema = buildFaqSchema(faqItems);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
+    <div className="min-h-[80vh]">
       <StructuredData data={breadcrumb} />
       <StructuredData data={faqSchema} />
 
-      <h1 className="mb-2 text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-3xl">
-        {isKo ? '통합 자산 계산기' : 'Universal Asset Calculator'}
-      </h1>
-      <p className="mb-8 text-zinc-500 dark:text-zinc-400">
-        {isKo
-          ? '환율, 암호화폐, 주식을 하나의 계산기에서 변환하세요.'
-          : 'Convert currencies, crypto, and stocks — all in one place.'}
-      </p>
+      <SearchHero rates={rates} stockPrices={stockPrices} />
 
-      <OmniCalculator rates={rates} stockPrices={stockPrices} />
-
-      {/* FAQ */}
-      <section className="mt-12">
-        <h2 className="mb-6 text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+      {/* FAQ — below the fold */}
+      <section className="mx-auto mt-16 max-w-2xl px-4 pb-12">
+        <h2 className="mb-6 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
           {isKo ? '자주 묻는 질문' : 'FAQ'}
         </h2>
         <div className="space-y-4">

@@ -15,9 +15,6 @@ export default function Header() {
           <span>환율</span>
         </Link>
         <nav className="flex items-center gap-4 text-sm font-medium text-zinc-600 dark:text-zinc-400">
-          <Link href="/calculator" className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100">
-            {t('calculator')}
-          </Link>
           <Link href="/rates" className="hidden transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 sm:block">
             {t('rates')}
           </Link>
