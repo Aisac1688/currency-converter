@@ -1,5 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { getCurrency } from '@/lib/currencies';
+import { isCryptoCode } from '@/lib/crypto-currencies';
+import { CRYPTO_PAIRS } from '@/lib/crypto-pairs';
 import { getRate, type Rates } from '@/lib/exchange-rates';
 import { formatCurrency, formatDate } from '@/lib/format';
 import { POPULAR_PAIRS, pairToSlug } from '@/lib/pairs';
@@ -20,18 +22,29 @@ interface Props {
   rates: Rates;
 }
 
-/** 기존 통화쌍 페이지 콘텐츠. */
+/** 통화쌍 페이지 콘텐츠. 암호화폐 쌍도 지원. */
 export default async function PairPageContent({ locale, from, to, rates }: Props) {
   const t = await getTranslations('pair');
   const rate = getRate(from, to, rates);
   const fromC = getCurrency(from);
   const toC = getCurrency(to);
+  const isCrypto = isCryptoCode(from) || isCryptoCode(to);
 
-  const faqItems = [
-    { question: t('faq.q1', { fromCode: from.toUpperCase(), toCode: to.toUpperCase() }), answer: t('faq.a1', { fromCode: from.toUpperCase(), toCode: to.toUpperCase(), rate: formatCurrency(rate) }) },
-    { question: t('faq.q2', { fromName: fromC?.name ?? from, toName: toC?.name ?? to }), answer: t('faq.a2') },
-    { question: t('faq.q3', { fromCode: from.toUpperCase(), toCode: to.toUpperCase() }), answer: t('faq.a3') },
-  ];
+  let faqItems;
+  if (isCrypto) {
+    const ct = await getTranslations('cryptoPair');
+    faqItems = [
+      { question: t('faq.q1', { fromCode: from.toUpperCase(), toCode: to.toUpperCase() }), answer: t('faq.a1', { fromCode: from.toUpperCase(), toCode: to.toUpperCase(), rate: formatCurrency(rate) }) },
+      { question: ct('faq.q2', { fromName: fromC?.name ?? from, toName: toC?.name ?? to }), answer: ct('faq.a2') },
+      { question: ct('faq.q3', { fromCode: from.toUpperCase(), toCode: to.toUpperCase() }), answer: ct('faq.a3') },
+    ];
+  } else {
+    faqItems = [
+      { question: t('faq.q1', { fromCode: from.toUpperCase(), toCode: to.toUpperCase() }), answer: t('faq.a1', { fromCode: from.toUpperCase(), toCode: to.toUpperCase(), rate: formatCurrency(rate) }) },
+      { question: t('faq.q2', { fromName: fromC?.name ?? from, toName: toC?.name ?? to }), answer: t('faq.a2') },
+      { question: t('faq.q3', { fromCode: from.toUpperCase(), toCode: to.toUpperCase() }), answer: t('faq.a3') },
+    ];
+  }
 
   const faqSchema = buildFaqSchema(faqItems);
   const breadcrumbSchema = buildBreadcrumbSchema([
@@ -92,7 +105,7 @@ export default async function PairPageContent({ locale, from, to, rates }: Props
           {locale === 'ko' ? '관련 환율' : 'Related Rates'}
         </h2>
         <div className="flex flex-wrap gap-2">
-          {POPULAR_PAIRS.filter(([f, t]) => (f === from || t === from || f === to || t === to) && !(f === from && t === to)).slice(0, 8).map(([f, t]) => (
+          {[...POPULAR_PAIRS, ...CRYPTO_PAIRS].filter(([f, t]) => (f === from || t === from || f === to || t === to) && !(f === from && t === to)).slice(0, 8).map(([f, t]) => (
             <Link key={`${f}-${t}`} href={`/${f}-to-${t}`} className="rounded-lg border border-zinc-200 px-3 py-1.5 text-sm text-zinc-600 transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800">
               {getCurrency(f)?.flag} {f.toUpperCase()} → {getCurrency(t)?.flag} {t.toUpperCase()}
             </Link>

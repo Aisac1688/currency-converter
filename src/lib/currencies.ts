@@ -1,3 +1,5 @@
+import { CRYPTO_CURRENCIES } from './crypto-currencies';
+
 export interface Currency {
   code: string;
   name: string;
@@ -159,9 +161,10 @@ export const CURRENCIES: Currency[] = [
   { code: 'stn', name: 'São Tomé Dobra', nameKo: '상투메 도브라', symbol: 'Db', flag: '🇸🇹' },
 ];
 
-/** 코드로 통화 찾기. */
+/** 코드로 통화 찾기. 법정화폐 → 암호화폐 순서 조회. */
 export function getCurrency(code: string): Currency | undefined {
-  return CURRENCIES.find(c => c.code === code.toLowerCase());
+  const lc = code.toLowerCase();
+  return CURRENCIES.find(c => c.code === lc) ?? CRYPTO_CURRENCIES.find(c => c.code === lc);
 }
 
 /** 전체 통화 코드 목록. */

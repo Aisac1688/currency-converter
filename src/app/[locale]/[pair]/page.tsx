@@ -3,6 +3,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { locales } from '@/i18n/config';
 import { POPULAR_PAIRS, pairToSlug, parseSlug, amountPairToSlug } from '@/lib/pairs';
 import { getAllAmountSlugs } from '@/lib/amount-pairs';
+import { CRYPTO_PAIRS, getAllCryptoAmountSlugs } from '@/lib/crypto-pairs';
 import { fetchRates, convert, getRate } from '@/lib/exchange-rates';
 import { getCurrency } from '@/lib/currencies';
 import { formatCurrency } from '@/lib/format';
@@ -17,7 +18,13 @@ export function generateStaticParams() {
     for (const [from, to] of POPULAR_PAIRS) {
       params.push({ locale, pair: pairToSlug(from, to) });
     }
+    for (const [from, to] of CRYPTO_PAIRS) {
+      params.push({ locale, pair: pairToSlug(from, to) });
+    }
     for (const { from, to, amount } of getAllAmountSlugs()) {
+      params.push({ locale, pair: amountPairToSlug(amount, from, to) });
+    }
+    for (const { from, to, amount } of getAllCryptoAmountSlugs()) {
       params.push({ locale, pair: amountPairToSlug(amount, from, to) });
     }
   }

@@ -2,6 +2,8 @@ import type { MetadataRoute } from 'next';
 import { locales } from '@/i18n/config';
 import { POPULAR_PAIRS, pairToSlug, amountPairToSlug } from '@/lib/pairs';
 import { getAllAmountSlugs } from '@/lib/amount-pairs';
+import { CRYPTO_PAIRS, getAllCryptoAmountSlugs } from '@/lib/crypto-pairs';
+import { getAllStockSlugs } from '@/lib/stock-tickers';
 import { getAllSlugs } from '@/lib/blog';
 import { getAllCategorySlugs } from '@/lib/blog-categories';
 
@@ -49,6 +51,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages: { ko: `${SITE_URL}/ko/travel-budget`, en: `${SITE_URL}/en/travel-budget` } },
     });
 
+    // 통합 계산기
+    entries.push({
+      url: `${SITE_URL}/${locale}/calculator`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+      alternates: { languages: { ko: `${SITE_URL}/ko/calculator`, en: `${SITE_URL}/en/calculator` } },
+    });
+
     // 블로그 목록
     entries.push({
       url: `${SITE_URL}/${locale}/blog`,
@@ -81,6 +92,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       });
     }
 
+    // 암호화폐 쌍 페이지
+    for (const [from, to] of CRYPTO_PAIRS) {
+      const slug = pairToSlug(from, to);
+      entries.push({
+        url: `${SITE_URL}/${locale}/${slug}`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.7,
+        alternates: { languages: { ko: `${SITE_URL}/ko/${slug}`, en: `${SITE_URL}/en/${slug}` } },
+      });
+    }
+
     // 금액별 페이지
     for (const { from, to, amount } of getAllAmountSlugs()) {
       const slug = amountPairToSlug(amount, from, to);
@@ -90,6 +113,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'daily',
         priority: 0.6,
         alternates: { languages: { ko: `${SITE_URL}/ko/${slug}`, en: `${SITE_URL}/en/${slug}` } },
+      });
+    }
+
+    // 암호화폐 금액별 페이지
+    for (const { from, to, amount } of getAllCryptoAmountSlugs()) {
+      const slug = amountPairToSlug(amount, from, to);
+      entries.push({
+        url: `${SITE_URL}/${locale}/${slug}`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.6,
+        alternates: { languages: { ko: `${SITE_URL}/ko/${slug}`, en: `${SITE_URL}/en/${slug}` } },
+      });
+    }
+
+    // 주식 페이지
+    for (const ticker of getAllStockSlugs()) {
+      entries.push({
+        url: `${SITE_URL}/${locale}/stock/${ticker}`,
+        lastModified: now,
+        changeFrequency: 'daily',
+        priority: 0.7,
+        alternates: { languages: { ko: `${SITE_URL}/ko/stock/${ticker}`, en: `${SITE_URL}/en/stock/${ticker}` } },
       });
     }
 

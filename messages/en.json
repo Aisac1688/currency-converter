@@ -5,9 +5,11 @@
   },
   "nav": {
     "converter": "Converter",
+    "calculator": "Calculator",
     "rates": "Rates",
     "compare": "Compare",
     "travelBudget": "Travel Budget",
+    "stocks": "Stocks",
     "blog": "Blog"
   },
   "converter": {
@@ -36,6 +38,14 @@
       "a2": "You can convert through banks, currency exchange offices, or online remittance services. Compare exchange fees to find the best rate.",
       "q3": "How often does the {fromCode}/{toCode} rate change?",
       "a3": "The forex market operates 24 hours on weekdays and rates change in real-time. Rates on this site are updated daily."
+    }
+  },
+  "cryptoPair": {
+    "faq": {
+      "q2": "How to convert {fromName} to {toName}?",
+      "a2": "You can convert through cryptocurrency exchanges like Upbit, Bithumb, Binance, or Coinbase. Compare trading fees to find the best rate.",
+      "q3": "How often does the {fromCode}/{toCode} price change?",
+      "a3": "The cryptocurrency market operates 24/7 and prices change in real-time. Rates on this site are updated daily."
     }
   },
   "blog": {

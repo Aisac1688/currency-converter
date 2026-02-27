@@ -82,13 +82,13 @@ export interface PairSlug { type: 'pair'; from: string; to: string }
 export interface AmountPairSlug { type: 'amount'; amount: number; from: string; to: string }
 export type ParsedSlug = PairSlug | AmountPairSlug;
 
-/** URL 슬러그를 파싱하여 통화쌍 또는 금액+통화쌍 반환. */
+/** URL 슬러그를 파싱하여 통화쌍 또는 금액+통화쌍 반환. {3,5}로 암호화폐 코드 지원. */
 export function parseSlug(slug: string): ParsedSlug | null {
-  const amountMatch = slug.match(/^(\d+)-([a-z]{3})-to-([a-z]{3})$/);
+  const amountMatch = slug.match(/^(\d+)-([a-z]{3,5})-to-([a-z]{3,5})$/);
   if (amountMatch) {
     return { type: 'amount', amount: parseInt(amountMatch[1], 10), from: amountMatch[2], to: amountMatch[3] };
   }
-  const pairMatch = slug.match(/^([a-z]{3})-to-([a-z]{3})$/);
+  const pairMatch = slug.match(/^([a-z]{3,5})-to-([a-z]{3,5})$/);
   if (pairMatch) {
     return { type: 'pair', from: pairMatch[1], to: pairMatch[2] };
   }

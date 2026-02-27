@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { CURRENCIES, type Currency } from '@/lib/currencies';
+import { CRYPTO_CURRENCIES } from '@/lib/crypto-currencies';
 
 interface CurrencySelectProps {
   value: string;
@@ -14,7 +15,8 @@ export default function CurrencySelect({ value, onChange, label }: CurrencySelec
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const ref = useRef<HTMLDivElement>(null);
-  const selected = CURRENCIES.find(c => c.code === value);
+  const ALL_CURRENCIES = [...CURRENCIES, ...CRYPTO_CURRENCIES];
+  const selected = ALL_CURRENCIES.find(c => c.code === value);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -26,7 +28,7 @@ export default function CurrencySelect({ value, onChange, label }: CurrencySelec
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const filtered = CURRENCIES.filter(c => {
+  const filtered = ALL_CURRENCIES.filter(c => {
     const q = search.toLowerCase();
     return c.code.includes(q) || c.name.toLowerCase().includes(q) || c.nameKo.includes(q);
   });
